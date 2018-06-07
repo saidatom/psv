@@ -4,9 +4,15 @@ body {
   min-height: 100vh;
 }
 
+.password-strength {
+  display: none;
+}
+
 .psv-content {
   display: flex;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .psv-content .layout-container {

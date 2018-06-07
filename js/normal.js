@@ -1,27 +1,17 @@
 Drupal.behaviors.NormalImage = {
   attach: function (context, settings) {
     const passwordInput = document.querySelector('#edit-pass-pass1');
-    const strengthStr = {
-        0: 'Worst',
-        1: 'Bad',
-        2: 'Weak',
-        3: 'Good',
-        4: 'Strong'
-    }
     const canvasWrapper = document.querySelector('.canvas-wrap');
     const canvas = canvasWrapper.querySelector('canvas');
     const poster = document.querySelector('.poster');
     const posterImg = poster.style.backgroundImage.match(/\((.*?)\)/)[1].replace(/('|")/g,'');
-    imagesLoaded(poster, { background: true }, () => {
-        document.body.classList.remove('loading');
-    });
 
     // The following code was taken and modified from http://jsfiddle.net/u6apxgfk/390/
     // (C) Ken Fyrstenberg, Epistemex, License: CC3.0-attr
 
     // and merged with https://codepen.io/bassta/pen/OPVzyB?editors=1010
 
-	const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
     const img = new Image();
     let imgRatio;
     let wrapperRatio;
@@ -30,7 +20,7 @@ Drupal.behaviors.NormalImage = {
     let newX;
     let newY;
 
-    let pxFactor = 1;
+    let psIndicator = 1;
 
     img.src = posterImg;
     img.onload = () => {
@@ -65,9 +55,7 @@ Drupal.behaviors.NormalImage = {
             newX = (w - newWidth) / 2;
         }
 
-        // pxFactor will depend on the current typed password.
-        // values will be in the range [1,100].
-        const size = pxFactor * 0.01;
+        const size = psIndicator * 0.01;
 
         // turn off image smoothing - this will give the pixelated effect
         ctx.mozImageSmoothingEnabled = size === 1 ? true : false;
@@ -88,21 +76,13 @@ Drupal.behaviors.NormalImage = {
     });
 
     passwordInput.addEventListener('input', () => {
-        const val = passwordInput.value;
-        const result = zxcvbn(val);
-        // We want to reveal the image as the password gets stronger. Since the zxcvbn.score has
-        // only 5 different values (0-4) we will use the zxcvbn.guesses_log10 output.
-        // The guesses_log10 will be >= 11 when the password is considered strong,
-        // so we want to map a factor of 1 (all pixelated) to 100 (clear image) to
-        // a value of 0 to 11 of guesses_log10.
-        // This result will be used in the render function.
-        pxFactor = 99/11*Math.min(11,Math.round(result.guesses_log10)) + 1;
-
-        // so we see most of the time pixels rather than approaching a clear image sooner..
-        if ( pxFactor != 1 && pxFactor != 100 ) {
-            pxFactor -= pxFactor/100*50;
+        psIndicator = Math.round(jQuery('.password-strength__indicator').width() / jQuery('.password-strength__indicator').parent().width() * 100);
+        if (psIndicator == 0) {
+            psIndicator = 1;
+        };
+        if ( psIndicator != 100 ) {
+            psIndicator -= psIndicator/100*50;
         }
-
         render();
     });
   }

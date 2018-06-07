@@ -5,7 +5,6 @@ normal:
       css/psv.css: {}
   js:
     js/imagesloaded.pkgd.min.js: {}
-    js/zxcvbn.js: {}
     js/normal.js: {}
   dependencies:
     - core/jquery
@@ -18,7 +17,6 @@ reversed:
       css/psv.css: {}
   js:
     js/imagesloaded.pkgd.min.js: {}
-    js/zxcvbn.js: {}
     js/reverse.js: {}
   dependencies:
     - core/jquery
