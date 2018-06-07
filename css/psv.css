@@ -23,7 +23,7 @@ body {
   flex-direction: row;
 }
 
-.psv-content .psv-side{
+.psv-content .psv-side {
   display: flex;
   flex-direction: row;
   width: calc(100vw - 550px);
