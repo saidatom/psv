@@ -34,28 +34,28 @@ class PSVConfigForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('psv.config');
 
-    $form = array();
+    $form = [];
 
-    $form['psv'] = array(
+    $form['psv'] = [
       '#type'        => 'fieldset',
       '#title'       => 'Password Strength Visualization',
       '#collapsible' => TRUE,
       '#collapsed'   => FALSE,
-    );
+    ];
 
-    $form['psv']['psv_enable'] = array(
+    $form['psv']['psv_enable'] = [
       '#type'          => 'checkbox',
       '#title'         => t('Enable'),
       '#default_value' => $config->get('psv_enable'),
-    );
+    ];
 
-    $form['psv']['psv_reverse'] = array(
+    $form['psv']['psv_reverse'] = [
       '#type'          => 'checkbox',
       '#title'         => t('Reverse Image'),
       '#default_value' => $config->get('psv_reverse'),
-    );
+    ];
 
-    $form['psv']['psv_image'] = array(
+    $form['psv']['psv_image'] = [
       '#type' => 'managed_file',
       '#title' => t('Image with preview'),
       '#upload_validators' => [
@@ -67,16 +67,9 @@ class PSVConfigForm extends ConfigFormBase {
       '#upload_location' => 'public://',
       '#required' => FALSE,
       '#default_value' => $config->get('psv_image'),
-    );
+    ];
 
     return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
   }
 
   /**
