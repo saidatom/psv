@@ -4,6 +4,8 @@ namespace Drupal\psv\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\psv\Controller\PSVController;
 
 /**
  * Class PSVConfigForm.
@@ -34,7 +36,17 @@ class PSVConfigForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('psv.config');
 
-    $form = [];
+    if (PSVController::register() == FALSE || PSVController::passwordStrength() == FALSE) {
+      $url = Link::createFromRoute(t('Account settings'), 'entity.user.admin_form')->toString();
+      drupal_set_message(
+        t('You need to verify your "@link"!<br>
+        "Enable password strength indicator" must be active<br>
+        "Register Accounts" all options except "Administrators only"', ['@link' => $url]),
+        'warning',
+        FALSE
+      );
+      $form['#access'] = FALSE;
+    }
 
     $form['psv'] = [
       '#type'        => 'fieldset',
