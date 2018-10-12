@@ -8,7 +8,6 @@ CONTENTS OF THIS FILE
  * Maintainers
  * Attention
 
-
 INTRODUCTION
 ------------
 
@@ -20,12 +19,10 @@ Password Strength Visualization for Drupal.
  * To submit bug reports and feature suggestions, or to track changes visit:
    https://www.drupal.org/project/issues/psv
 
-
 REQUIREMENTS
 ------------
 
 This module requires no modules outside of Drupal core.
-
 
 INSTALLATION
 ------------
@@ -34,31 +31,42 @@ INSTALLATION
    install a contributed Drupal module. Visit
    https://www.drupal.org/node/1897420 for further information.
 
-
 CONFIGURATION
 -------------
 
-Lorem ipsum dolor sit amet... **Just kidding!**
+  * Configure setting Register and Cancelation User in Administration » Configuration » People:
 
-    1. Navigate to Administration > Extend and enable the module.
-    2. Navigate to Administration > Configuration > System > Password Strength
-       Visualization Settings to configure the module.
-    4. Enter the background image and enable/disable reverse distortion. Save
+   - Enable password strength indicator
+
+     Must be active.
+
+   - Register Accounts
+
+     All options except "Administrators only".
+
+   - Require email verification when a visitor creates an account
+
+     Must be inactive.
+
+  * Configure Password Strength Visualization Settings in Administration » Configuration » System » Password Strength
+       Visualization Settings:
+
+   - Enter the background image and enable/disable reverse distortion. Save
        configuration.
-
 
 MAINTAINERS
 -----------
 
+Current maintainers:
  * Alexandre Dias (Saidatom) - https://www.drupal.org/u/saidatom
-
 
 ATTENTION
 ---------
 
 Version based on:
 
- * `https://tympanus.net/codrops/2018/04/18/password-strength-visualization/`
+ * `https://github.com/codrops/PasswordStrengthVisualization/`
+ * `https://github.com/codrops/PasswordStrengthVisualization/blob/master/README.md`
 
 Most bugs have been ironed out, holes covered, features added. This module
 is a work in progress. Please report bugs and suggestions, ok?

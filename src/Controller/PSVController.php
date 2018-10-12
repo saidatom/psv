@@ -41,4 +41,16 @@ class PSVController extends ControllerBase {
     return $state;
   }
 
+  /**
+   * Returns a TRUE or FALSE Required email verification.
+   */
+  public static function requiredEmail() {
+    $config = self::configUser();
+    $state = TRUE;
+    if ($config->get('verify_mail')) {
+      $state = FALSE;
+    }
+    return $state;
+  }
+
 }

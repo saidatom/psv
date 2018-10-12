@@ -36,12 +36,13 @@ class PSVConfigForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('psv.config');
 
-    if (PSVController::register() == FALSE || PSVController::passwordStrength() == FALSE) {
+    if (PSVController::register() == FALSE || PSVController::passwordStrength() == FALSE || PSVController::requiredEmail() == FALSE) {
       $url = Link::createFromRoute(t('Account settings'), 'entity.user.admin_form')->toString();
       drupal_set_message(
         t('You need to verify your "@link"!<br>
         "Enable password strength indicator" must be active<br>
-        "Register Accounts" all options except "Administrators only"', ['@link' => $url]),
+        "Register Accounts" all options except "Administrators only"<br>
+        "Require email verification when a visitor creates an account" must be inactive', ['@link' => $url]),
         'warning',
         FALSE
       );

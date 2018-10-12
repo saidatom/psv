@@ -19,7 +19,7 @@ body {
   width: 550px;
   margin: 0;
   padding: 5vmin;
-  display: flex;
+  display: flow-root;
   flex-direction: row;
 }
 
