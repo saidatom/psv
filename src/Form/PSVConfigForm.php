@@ -5,7 +5,6 @@ namespace Drupal\psv\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
-use Drupal\psv\Controller\PSVController;
 
 /**
  * Class PSVConfigForm.
@@ -35,15 +34,25 @@ class PSVConfigForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('psv.config');
+    $user = $this->config('user.settings');
 
-    if (PSVController::register() == FALSE || PSVController::passwordStrength() == FALSE || PSVController::requiredEmail() == FALSE) {
-      $url = Link::createFromRoute(t('Account settings'), 'entity.user.admin_form')->toString();
+    if ($user->get('password_strength') == FALSE
+        || $user->get('register') == 'admin_only'
+        || $user->get('verify_mail') == TRUE
+    ) {
+      $url = Link::createFromRoute(
+        t('Account settings'),
+        'entity.user.admin_form'
+      )->toString();
       drupal_set_message(
-        t('You need to verify your "@link"!<br>
+        t(
+            'You need to verify your "@link"!<br>
         "Enable password strength indicator" must be active<br>
         "Register Accounts" all options except "Administrators only"<br>
-        "Require email verification when a visitor creates an account" must be inactive', ['@link' => $url]),
-        'warning',
+        "Require email verification when a visitor creates an account"
+         must be inactive', ['@link' => $url]
+      ),
+          'warning',
         FALSE
       );
       $form['#access'] = FALSE;
